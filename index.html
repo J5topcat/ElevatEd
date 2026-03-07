@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elevated | 11+ Tutoring</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:     #0f1520;
+      --ink-mid: #3b4559;
+      --ink-light: #7a8499;
+      --cream:   #faf9f6;
+      --white:   #ffffff;
+      --teal:    #1a6b5a;
+      --teal-lt: #e6f2ef;
+      --gold:    #c8a96e;
+      --border:  #e4e1da;
+      --radius:  14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,249,246,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      height: 68px;
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: var(--teal);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.9rem; font-weight: 500; color: var(--ink-mid);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+
+    .nav-cta {
+      background: var(--teal); color: #fff;
+      padding: 0.55rem 1.3rem; border-radius: 50px;
+      font-size: 0.875rem; font-weight: 600;
+      text-decoration: none; transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: #145047; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 100px 5vw 60px;
+      gap: 4rem;
+    }
+
+    .hero-text { animation: fadeUp 0.8s ease both; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--teal-lt); color: var(--teal);
+      border: 1px solid rgba(26,107,90,0.2);
+      padding: 0.35rem 0.9rem; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em;
+      text-transform: uppercase; margin-bottom: 1.5rem;
+    }
+    .hero-badge::before { content: "✦"; font-size: 0.7rem; }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.6rem, 5vw, 3.8rem);
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.4rem;
+    }
+    .hero h1 em {
+      font-style: italic; color: var(--teal);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem; color: var(--ink-mid); font-weight: 300;
+      max-width: 480px; margin-bottom: 2.5rem;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--teal); color: #fff;
+      padding: 0.85rem 2rem; border-radius: 50px;
+      font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 18px rgba(26,107,90,0.25);
+    }
+    .btn-primary:hover { background: #145047; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,107,90,0.3); }
+
+    .btn-outline {
+      background: transparent; color: var(--teal);
+      padding: 0.85rem 2rem; border-radius: 50px;
+      font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; border: 2px solid var(--teal);
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-outline:hover { background: var(--teal); color: #fff; transform: translateY(-2px); }
+
+    /* hero visual */
+    .hero-visual {
+      animation: fadeUp 0.8s 0.15s ease both;
+      position: relative;
+    }
+
+    .hero-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 60px rgba(15,21,32,0.08), 0 4px 16px rgba(15,21,32,0.04);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--teal), var(--gold));
+    }
+
+    .card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--ink);
+    }
+
+    .subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+    .subject-pill {
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 0.85rem 1rem;
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.875rem; font-weight: 500; color: var(--ink-mid);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .subject-pill:hover { border-color: var(--teal); background: var(--teal-lt); color: var(--teal); }
+    .subject-pill .icon { font-size: 1.1rem; }
+
+    .card-stat {
+      margin-top: 1.5rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex; gap: 1.5rem;
+    }
+    .stat { text-align: center; flex: 1; }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem; color: var(--teal); line-height: 1;
+    }
+    .stat-label { font-size: 0.75rem; color: var(--ink-light); margin-top: 0.2rem; }
+
+    .floating-badge {
+      position: absolute; bottom: -16px; right: 2rem;
+      background: var(--gold); color: #fff;
+      padding: 0.5rem 1.1rem; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 700;
+      box-shadow: 0 4px 14px rgba(200,169,110,0.4);
+      white-space: nowrap;
+    }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      background: var(--ink);
+      padding: 1.2rem 5vw;
+      display: flex; align-items: center; justify-content: center; gap: 4rem;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .trust-item span { color: var(--gold); font-size: 1rem; }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 90px 5vw; }
+    .section-label {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 0.7rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      letter-spacing: -0.025em; line-height: 1.18;
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      font-size: 1rem; color: var(--ink-mid); font-weight: 300;
+      max-width: 560px; line-height: 1.7;
+    }
+
+    /* ── MISSION ── */
+    .mission {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .mission-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+
+    .mission-values { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem; }
+
+    .value-row {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.1rem 1.3rem; border-radius: var(--radius);
+      border: 1px solid var(--border); background: var(--cream);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .value-row:hover { border-color: var(--teal); box-shadow: 0 4px 16px rgba(26,107,90,0.08); }
+    .value-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: var(--teal-lt); display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .value-text strong { display: block; font-size: 0.92rem; font-weight: 600; color: var(--ink); }
+    .value-text p { font-size: 0.85rem; color: var(--ink-light); line-height: 1.5; margin-top: 0.2rem; }
+
+    /* mission right */
+    .mission-quote {
+      background: linear-gradient(135deg, var(--teal) 0%, #145047 100%);
+      border-radius: 24px; padding: 3rem;
+      color: #fff; position: relative; overflow: hidden;
+    }
+    .mission-quote::before {
+      content: '"';
+      position: absolute; top: -10px; left: 1.5rem;
+      font-family: 'DM Serif Display', serif;
+      font-size: 9rem; color: rgba(255,255,255,0.1); line-height: 1;
+      pointer-events: none;
+    }
+    .mission-quote blockquote {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem; line-height: 1.45; font-style: italic;
+      position: relative; z-index: 1;
+    }
+    .mission-quote cite {
+      display: block; margin-top: 1.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-style: normal; font-size: 0.85rem;
+      color: rgba(255,255,255,0.7); font-weight: 500;
+    }
+
+    .mission-who {
+      margin-top: 2rem;
+      background: rgba(255,255,255,0.1); border-radius: 14px; padding: 1.5rem;
+    }
+    .mission-who h4 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 0.8rem; }
+    .who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .who-item {
+      background: rgba(255,255,255,0.12); border-radius: 8px;
+      padding: 0.6rem 0.8rem; font-size: 0.82rem; color: rgba(255,255,255,0.9);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how { background: var(--cream); }
+    .how-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1rem; }
+
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+    .step-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2rem;
+      position: relative; overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .step-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(15,21,32,0.09); }
+    .step-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--gold));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .step-card:hover::after { transform: scaleX(1); }
+
+    .step-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3rem; color: var(--teal-lt); line-height: 1;
+      margin-bottom: 1rem; user-select: none;
+    }
+    .step-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .step-card p { font-size: 0.88rem; color: var(--ink-mid); line-height: 1.6; }
+
+    /* ── TUTORING ── */
+    .tutoring { background: var(--white); border-top: 1px solid var(--border); }
+    .tutoring-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+
+    .tutor-card {
+      border: 1px solid var(--border); border-radius: 20px;
+      overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .tutor-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(15,21,32,0.09); }
+    .tutor-card.featured {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px var(--teal-lt);
+    }
+
+    .tutor-card-header {
+      padding: 1.8rem; background: var(--cream); border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .featured-tag {
+      position: absolute; top: 1rem; right: 1rem;
+      background: var(--teal); color: #fff;
+      padding: 0.2rem 0.7rem; border-radius: 50px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .tutor-card-header h3 { font-size: 1.05rem; font-weight: 600; }
+    .tutor-card-header .price {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem; color: var(--teal); margin-top: 0.3rem;
+    }
+    .tutor-card-header .price span { font-size: 1rem; color: var(--ink-light); font-family: 'DM Sans', sans-serif; font-weight: 400; }
+
+    .tutor-card-body { padding: 1.8rem; }
+    .tutor-features { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .tutor-features li {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.88rem; color: var(--ink-mid);
+    }
+    .tutor-features li::before { content: "✓"; color: var(--teal); font-weight: 700; flex-shrink: 0; }
+
+    .tutor-card-footer { padding: 1.5rem 1.8rem; border-top: 1px solid var(--border); }
+    .btn-card {
+      display: block; text-align: center; width: 100%;
+      padding: 0.75rem; border-radius: 50px;
+      font-size: 0.9rem; font-weight: 600; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-card-primary { background: var(--teal); color: #fff; }
+    .btn-card-primary:hover { background: #145047; }
+    .btn-card-outline { border: 2px solid var(--teal); color: var(--teal); background: transparent; }
+    .btn-card-outline:hover { background: var(--teal); color: #fff; }
+
+    /* ── SHOP TEASER ── */
+    .shop-teaser {
+      background: var(--ink);
+      color: #fff; text-align: center; padding: 80px 5vw;
+    }
+    .shop-teaser .section-label { color: var(--gold); }
+    .shop-teaser .section-title { color: #fff; margin: 0 auto 1rem; }
+    .shop-teaser .section-sub { color: rgba(255,255,255,0.6); margin: 0 auto 2.5rem; text-align: center; }
+
+    .coming-soon-pills { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .cs-pill {
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 50px;
+      padding: 0.5rem 1.2rem; font-size: 0.85rem; color: rgba(255,255,255,0.7);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .cs-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+    .notify-form { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+    .notify-input {
+      padding: 0.8rem 1.3rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.07); color: #fff; font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; width: 280px; outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .notify-input::placeholder { color: rgba(255,255,255,0.35); }
+    .notify-input:focus { border-color: var(--gold); background: rgba(255,255,255,0.1); }
+    .btn-gold {
+      background: var(--gold); color: #fff; border: none; cursor: pointer;
+      padding: 0.8rem 1.8rem; border-radius: 50px; font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 600; transition: background 0.2s, transform 0.15s;
+    }
+    .btn-gold:hover { background: #b8943e; transform: translateY(-2px); }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { background: var(--cream); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+
+    .testi-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .testi-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(15,21,32,0.07); }
+
+    .stars { color: var(--gold); font-size: 0.9rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .testi-text { font-size: 0.92rem; color: var(--ink-mid); line-height: 1.65; font-style: italic; margin-bottom: 1.5rem; }
+    .testi-author { display: flex; align-items: center; gap: 0.75rem; }
+    .avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; color: #fff; flex-shrink: 0;
+    }
+    .author-name { font-size: 0.88rem; font-weight: 600; }
+    .author-role { font-size: 0.78rem; color: var(--ink-light); }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--teal) 0%, #0e4038 100%);
+      padding: 80px 5vw; text-align: center; color: #fff;
+    }
+    .cta-banner h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem); margin-bottom: 0.8rem;
+    }
+    .cta-banner p { color: rgba(255,255,255,0.7); margin-bottom: 2rem; font-size: 1rem; }
+    .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      background: #fff; color: var(--teal); padding: 0.85rem 2rem;
+      border-radius: 50px; font-weight: 700; font-size: 0.95rem;
+      text-decoration: none; transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .btn-ghost {
+      background: transparent; color: #fff;
+      padding: 0.85rem 2rem; border-radius: 50px;
+      font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; border: 2px solid rgba(255,255,255,0.5);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,0.55);
+      padding: 3rem 5vw;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem; color: #fff;
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.82rem; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-copy { font-size: 0.78rem; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 110px; }
+      .hero-visual { display: none; }
+      .mission-inner { grid-template-columns: 1fr; }
+      .steps, .tutoring-grid, .testimonials-grid { grid-template-columns: 1fr; }
+      .trust-bar { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Elevated<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#mission">About</a></li>
+    <li><a href="#how">How it Works</a></li>
+    <li><a href="#tutoring">Tutoring</a></li>
+    <li><a href="#shop">Shop</a></li>
+  </ul>
+  <a href="#tutoring" class="nav-cta">Book a Session</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">11+ Specialist Tutoring</div>
+    <h1>Give your child the <em>edge</em> they deserve</h1>
+    <p class="hero-sub">Elevated is a social enterprise dedicated to preparing children for the 11+ exam — with expert guidance, personalised support, and a genuine belief in every child's potential.</p>
+    <div class="hero-actions">
+      <a href="#tutoring" class="btn-primary">Explore Sessions →</a>
+      <a href="#mission" class="btn-outline">Our Mission</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card">
+      <p class="card-title">What we cover</p>
+      <div class="subject-grid">
+        <div class="subject-pill"><span class="icon">📝</span> English</div>
+        <div class="subject-pill"><span class="icon">🔢</span> Maths</div>
+        <div class="subject-pill"><span class="icon">🧩</span> Verbal Reasoning</div>
+        <div class="subject-pill"><span class="icon">📐</span> Non-Verbal</div>
+      </div>
+      <div class="card-stat">
+        <div class="stat"><div class="stat-num">94%</div><div class="stat-label">Pass Rate</div></div>
+        <div class="stat"><div class="stat-num">150+</div><div class="stat-label">Students Helped</div></div>
+        <div class="stat"><div class="stat-num">5★</div><div class="stat-label">Parent Reviews</div></div>
+      </div>
+    </div>
+    <div class="floating-badge">🎓 Results-driven tutoring</div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span>✦</span> Social Enterprise</div>
+  <div class="trust-item"><span>✦</span> DBS-Checked Tutors</div>
+  <div class="trust-item"><span>✦</span> Personalised Plans</div>
+  <div class="trust-item"><span>✦</span> 94% Pass Rate</div>
+  <div class="trust-item"><span>✦</span> Parent-Friendly Reporting</div>
+</div>
+
+<!-- MISSION -->
+<section class="mission" id="mission">
+  <div class="mission-inner">
+    <div>
+      <p class="section-label reveal">Who We Are</p>
+      <h2 class="section-title reveal">A mission rooted in <em style="font-style:italic; color:var(--teal)">opportunity</em></h2>
+      <p class="section-sub reveal">Elevated was founded on a simple belief: every child — regardless of background — deserves access to outstanding 11+ preparation. We combine expert tuition with a genuine care for the whole child.</p>
+
+      <div class="mission-values reveal">
+        <div class="value-row">
+          <div class="value-icon">🎯</div>
+          <div class="value-text">
+            <strong>Purposeful Learning</strong>
+            <p>Structured, exam-focused sessions that build real confidence — not just rote answers.</p>
+          </div>
+        </div>
+        <div class="value-row">
+          <div class="value-icon">🤝</div>
+          <div class="value-text">
+            <strong>Social Impact</strong>
+            <p>As a social enterprise, we reinvest in making quality tutoring accessible to underserved communities.</p>
+          </div>
+        </div>
+        <div class="value-row">
+          <div class="value-icon">📊</div>
+          <div class="value-text">
+            <strong>Transparent Progress</strong>
+            <p>Regular reports and parent updates so you always know exactly how your child is progressing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="mission-quote">
+        <blockquote>"Every child who walks through our door has the potential to be extraordinary. Our job is simply to help them see it."</blockquote>
+        <cite>— The Elevated Team</cite>
+
+        <div class="mission-who">
+          <h4>We work with children who are</h4>
+          <div class="who-grid">
+            <div class="who-item">📅 Aged 9–11</div>
+            <div class="who-item">🏫 Targeting grammars</div>
+            <div class="who-item">📈 Building confidence</div>
+            <div class="who-item">🌍 Any background</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-header">
+    <div>
+      <p class="section-label reveal">Simple Process</p>
+      <h2 class="section-title reveal">How Elevated works</h2>
+    </div>
+    <p class="section-sub reveal" style="text-align:right; max-width:360px;">From your first enquiry to exam day — we're with you every step.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step-card reveal">
+      <div class="step-num">01</div>
+      <h3>Free Consultation</h3>
+      <p>Book a no-obligation call with one of our tutors to discuss your child's current level, target schools, and exam timeline.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">02</div>
+      <h3>Tailored Plan</h3>
+      <p>We create a personalised study plan covering all 11+ subjects, adapted to your child's strengths and areas for growth.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">03</div>
+      <h3>Guided Sessions</h3>
+      <p>Weekly 1-to-1 or small group sessions, delivered with energy, patience, and a focus on lasting understanding.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TUTORING -->
+<section class="tutoring" id="tutoring">
+  <p class="section-label reveal">Sessions & Pricing</p>
+  <h2 class="section-title reveal">Flexible tutoring options</h2>
+  <p class="section-sub reveal">Choose the format that fits your child and your schedule. All sessions include progress tracking and parent updates.</p>
+
+  <div class="tutoring-grid">
+    <div class="tutor-card reveal">
+      <div class="tutor-card-header">
+        <h3>Group Tuition</h3>
+        <div class="price">£20 <span>/ session</span></div>
+      </div>
+      <div class="tutor-card-body">
+        <ul class="tutor-features">
+          <li>Small groups of 4–6 students</li>
+          <li>Weekly 90-minute sessions</li>
+          <li>All 11+ subjects covered</li>
+          <li>Monthly progress report</li>
+          <li>Peer learning environment</li>
+        </ul>
+      </div>
+      <div class="tutor-card-footer">
+        <a href="#" class="btn-card btn-card-outline">Book Group Session</a>
+      </div>
+    </div>
+
+    <div class="tutor-card featured reveal">
+      <div class="tutor-card-header">
+        <div class="featured-tag">Most Popular</div>
+        <h3>1-to-1 Tuition</h3>
+        <div class="price">£45 <span>/ session</span></div>
+      </div>
+      <div class="tutor-card-body">
+        <ul class="tutor-features">
+          <li>Dedicated personal tutor</li>
+          <li>Fully bespoke session plan</li>
+          <li>Flexible scheduling</li>
+          <li>Fortnightly parent review call</li>
+          <li>Mock exam preparation</li>
+          <li>WhatsApp support between sessions</li>
+        </ul>
+      </div>
+      <div class="tutor-card-footer">
+        <a href="#" class="btn-card btn-card-primary">Book 1-to-1 Session</a>
+      </div>
+    </div>
+
+    <div class="tutor-card reveal">
+      <div class="tutor-card-header">
+        <h3>Intensive Programme</h3>
+        <div class="price">£180 <span>/ month</span></div>
+      </div>
+      <div class="tutor-card-body">
+        <ul class="tutor-features">
+          <li>4 × 1-to-1 sessions/month</li>
+          <li>Full mock exam papers</li>
+          <li>School application guidance</li>
+          <li>Weekly parent progress updates</li>
+          <li>Exam technique masterclass</li>
+          <li>Priority scheduling</li>
+        </ul>
+      </div>
+      <div class="tutor-card-footer">
+        <a href="#" class="btn-card btn-card-outline">Enquire Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <p class="section-label reveal">Parent Stories</p>
+  <h2 class="section-title reveal">Families who trusted Elevated</h2>
+
+  <div class="testimonials-grid">
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"My daughter went from really struggling with verbal reasoning to absolutely flying through practice papers. The tutors at Elevated have been incredible — patient, encouraging and genuinely invested in her success."</p>
+      <div class="testi-author">
+        <div class="avatar">SM</div>
+        <div>
+          <div class="author-name">Sarah M.</div>
+          <div class="author-role">Parent of Year 5 student</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"We were anxious about the whole 11+ process but Elevated made it feel manageable. The regular parent updates were so reassuring — we always knew exactly where our son stood."</p>
+      <div class="testi-author">
+        <div class="avatar">JP</div>
+        <div>
+          <div class="author-name">James P.</div>
+          <div class="author-role">Parent of Year 6 student</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"What sets Elevated apart is their heart. You can tell they genuinely care about the children — not just results. Our son gained confidence across the board and passed his first-choice grammar school."</p>
+      <div class="testi-author">
+        <div class="avatar">AD</div>
+        <div>
+          <div class="author-name">Amara D.</div>
+          <div class="author-role">Parent of Year 6 student</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP TEASER -->
+<section class="shop-teaser" id="shop">
+  <p class="section-label">Coming Soon</p>
+  <h2 class="section-title">The Elevated Shop</h2>
+  <p class="section-sub">We're building a carefully curated range of 11+ resources — from practice paper packs to revision guides and study kits. Be the first to know when we launch.</p>
+
+  <div class="coming-soon-pills">
+    <div class="cs-pill"><div class="dot"></div> Practice Paper Packs</div>
+    <div class="cs-pill"><div class="dot"></div> Revision Guides</div>
+    <div class="cs-pill"><div class="dot"></div> Study Kits</div>
+    <div class="cs-pill"><div class="dot"></div> Flashcard Sets</div>
+    <div class="cs-pill"><div class="dot"></div> Online Resources</div>
+  </div>
+
+  <div class="notify-form">
+    <input type="email" class="notify-input" placeholder="Enter your email address"/>
+    <button class="btn-gold" onclick="this.textContent='✓ Notified!'; this.style.background='#4caf7d';">Notify Me</button>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Ready to give your child the best start?</h2>
+  <p>Book a free consultation today — no pressure, just an honest conversation about how we can help.</p>
+  <div class="cta-actions">
+    <a href="#tutoring" class="btn-white">Book Free Consultation</a>
+    <a href="mailto:hello@elevated11.co.uk" class="btn-ghost">Email Us</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Elevated<span>.</span></div>
+  <div class="footer-links">
+    <a href="#mission">About</a>
+    <a href="#tutoring">Tutoring</a>
+    <a href="#shop">Shop</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Contact</a>
+  </div>
+  <p class="footer-copy">© 2025 Elevated. A social enterprise.</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Smooth active nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--teal)' : '';
+    });
+  });
+</script>
+</body>
+</html>
