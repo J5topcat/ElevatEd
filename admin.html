@@ -337,7 +337,7 @@
     <input type="password" id="passwordInput" class="login-input" placeholder="Enter password" autocomplete="current-password"/>
     <button class="login-btn" onclick="checkPassword()">Access Dashboard →</button>
     <p class="login-error" id="loginError">❌ Incorrect password. Try again.</p>
-    <p style="margin-top:1.5rem; font-size:0.72rem; color:var(--ink-dim);"></p>
+    <p style="margin-top:1.5rem; font-size:0.72rem; color:var(--ink-dim);">Password is set in your Netlify dashboard</p>
   </div>
 </div>
 
@@ -609,18 +609,45 @@
 </div>
 
 <script>
-  // ── PASSWORD ──
-  const PASSWORD = 'sachisgreat2026'; // ← Change this to your own password
+  // ── PASSWORD — checked server-side via Netlify Function ──
+  // The actual password lives in Netlify → Site config → Environment variables
+  // It is never visible in this file or on GitHub
 
-  function checkPassword() {
+  async function checkPassword() {
     const input = document.getElementById('passwordInput').value;
-    if (input === PASSWORD) {
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('dashboard').style.display = 'block';
-      initDashboard();
-    } else {
-      document.getElementById('loginError').style.display = 'block';
-      document.getElementById('passwordInput').value = '';
+    const btn = document.querySelector('.login-btn');
+    const error = document.getElementById('loginError');
+
+    if (!input) return;
+
+    btn.textContent = 'Checking…';
+    btn.disabled = true;
+    error.style.display = 'none';
+
+    try {
+      const res = await fetch('/.netlify/functions/check-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: input })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        initDashboard();
+      } else {
+        error.style.display = 'block';
+        document.getElementById('passwordInput').value = '';
+        btn.textContent = 'Access Dashboard →';
+        btn.disabled = false;
+      }
+    } catch (err) {
+      // Fallback for local testing (won't work without Netlify)
+      error.textContent = '⚠️ Could not connect — make sure you\'re viewing via Netlify, not locally.';
+      error.style.display = 'block';
+      btn.textContent = 'Access Dashboard →';
+      btn.disabled = false;
     }
   }
 
