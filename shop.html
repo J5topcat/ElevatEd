@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elevated Shop — 11+ Resources</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #0f1520;
+      --ink-mid:   #3b4559;
+      --ink-light: #7a8499;
+      --cream:     #faf9f6;
+      --white:     #ffffff;
+      --teal:      #1a6b5a;
+      --teal-lt:   #e6f2ef;
+      --teal-dk:   #145047;
+      --gold:      #c8a96e;
+      --gold-lt:   #fdf6ec;
+      --border:    #e4e1da;
+      --red:       #e05c5c;
+      --radius:    16px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(250,249,246,0.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 64px; gap: 1rem;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-name { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--ink); letter-spacing: 0.03em; }
+    .nav-logo-rule { height: 1px; background: linear-gradient(90deg, var(--teal), var(--gold)); margin: 2px 0; }
+    .nav-logo-tagline { font-size: 0.42rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-light); }
+
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-link { font-size: 0.85rem; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; }
+    .nav-link:hover { color: var(--teal); }
+
+    .cart-btn {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: var(--ink); color: #fff;
+      border: none; cursor: pointer;
+      padding: 0.55rem 1.1rem; border-radius: 50px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600;
+      transition: background 0.2s; position: relative;
+    }
+    .cart-btn:hover { background: var(--teal); }
+    .cart-count {
+      background: var(--gold); color: #fff;
+      width: 18px; height: 18px; border-radius: 50%;
+      font-size: 0.65rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      display: none;
+    }
+    .cart-count.show { display: flex; }
+
+    /* ── HERO BANNER ── */
+    .shop-hero {
+      background: var(--ink);
+      padding: 60px 5vw 50px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .shop-hero::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--gold), var(--teal));
+    }
+    .shop-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(26,107,90,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .shop-hero-label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    .shop-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: #fff; margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+    .shop-hero p {
+      font-size: 0.95rem; color: rgba(255,255,255,0.6);
+      max-width: 520px; margin: 0 auto 1.5rem;
+    }
+    .shop-hero-pills {
+      display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap;
+    }
+    .hero-pill {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50px; padding: 0.35rem 0.9rem;
+      font-size: 0.75rem; color: rgba(255,255,255,0.6);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .hero-pill span { color: var(--teal); }
+
+    /* ── MAIN LAYOUT ── */
+    .shop-wrap {
+      max-width: 1100px; margin: 0 auto;
+      padding: 3rem 5vw 5rem;
+    }
+
+    /* ── FILTERS ── */
+    .filters {
+      display: flex; align-items: center; gap: 0.6rem;
+      margin-bottom: 2.5rem; flex-wrap: wrap;
+    }
+    .filter-label { font-size: 0.78rem; font-weight: 600; color: var(--ink-mid); margin-right: 0.25rem; }
+    .filter-btn {
+      padding: 0.45rem 1rem; border-radius: 50px;
+      border: 1px solid var(--border); background: var(--white);
+      font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
+      color: var(--ink-mid); cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover { border-color: var(--teal); color: var(--teal); }
+    .filter-btn.active { background: var(--teal); border-color: var(--teal); color: #fff; }
+
+    /* ── PRODUCTS GRID ── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex; flex-direction: column;
+    }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(15,21,32,0.09); }
+
+    .product-thumb {
+      aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; position: relative; overflow: hidden;
+    }
+    .product-thumb::after {
+      content: ''; position: absolute; inset: 0;
+      background: inherit; filter: blur(40px); opacity: 0.3; z-index: 0;
+    }
+    .product-thumb-icon { position: relative; z-index: 1; }
+
+    .thumb-teal { background: linear-gradient(135deg, #e6f2ef, #c5e3da); }
+    .thumb-gold { background: linear-gradient(135deg, #fdf6ec, #f5e8ca); }
+    .thumb-blue { background: linear-gradient(135deg, #eef3fc, #d5e4f7); }
+
+    .product-badge-wrap {
+      position: absolute; top: 0.75rem; left: 0.75rem;
+      display: flex; gap: 0.4rem; z-index: 2;
+    }
+    .badge {
+      padding: 0.2rem 0.65rem; border-radius: 50px;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .badge-new { background: var(--teal); color: #fff; }
+    .badge-popular { background: var(--gold); color: #fff; }
+    .badge-digital { background: rgba(255,255,255,0.9); color: var(--ink-mid); }
+    .badge-coming { background: rgba(15,21,32,0.6); color: rgba(255,255,255,0.7); }
+
+    .product-info { padding: 1.3rem 1.4rem; flex: 1; display: flex; flex-direction: column; }
+    .product-category { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.4rem; }
+    .product-name { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--ink); margin-bottom: 0.4rem; line-height: 1.3; }
+    .product-desc { font-size: 0.82rem; color: var(--ink-light); line-height: 1.6; flex: 1; margin-bottom: 1rem; }
+
+    .product-meta {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;
+    }
+    .meta-pill {
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: 50px; padding: 0.2rem 0.65rem;
+      font-size: 0.7rem; color: var(--ink-mid);
+      display: flex; align-items: center; gap: 0.3rem;
+    }
+
+    .product-footer {
+      padding: 1rem 1.4rem; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+    }
+    .product-price {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem; color: var(--teal);
+    }
+    .product-price span { font-size: 0.8rem; font-family: 'DM Sans', sans-serif; color: var(--ink-light); font-weight: 400; }
+
+    .btn-add {
+      background: var(--teal); color: #fff; border: none; cursor: pointer;
+      padding: 0.6rem 1.2rem; border-radius: 50px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .btn-add:hover { background: var(--teal-dk); transform: translateY(-1px); }
+    .btn-add.added { background: #4caf7d; }
+    .btn-add:disabled { background: var(--ink-light); cursor: not-allowed; transform: none; }
+
+    .btn-notify {
+      background: transparent; color: var(--ink-mid);
+      border: 1px solid var(--border); cursor: pointer;
+      padding: 0.6rem 1.2rem; border-radius: 50px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .btn-notify:hover { border-color: var(--teal); color: var(--teal); }
+
+    /* ── CART DRAWER ── */
+    .cart-overlay {
+      position: fixed; inset: 0; background: rgba(15,21,32,0.5);
+      z-index: 200; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+    .cart-drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; width: 400px; max-width: 100vw;
+      background: var(--white); z-index: 201;
+      transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      display: flex; flex-direction: column;
+      box-shadow: -8px 0 40px rgba(15,21,32,0.12);
+    }
+    .cart-drawer.open { transform: translateX(0); }
+
+    .cart-header {
+      padding: 1.3rem 1.5rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--cream);
+    }
+    .cart-header h2 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; }
+    .cart-close {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--white);
+      cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+    }
+    .cart-close:hover { background: var(--cream); }
+
+    .cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; }
+
+    .cart-empty {
+      text-align: center; padding: 3rem 1rem; color: var(--ink-light);
+    }
+    .cart-empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+
+    .cart-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1rem 0; border-bottom: 1px solid var(--border);
+    }
+    .cart-item:last-child { border-bottom: none; }
+    .cart-item-icon {
+      width: 52px; height: 52px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; flex-shrink: 0;
+    }
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-size: 0.88rem; font-weight: 600; color: var(--ink); margin-bottom: 0.15rem; }
+    .cart-item-sub { font-size: 0.75rem; color: var(--ink-light); }
+    .cart-item-right { text-align: right; }
+    .cart-item-price { font-weight: 600; color: var(--teal); font-size: 0.92rem; }
+    .cart-item-remove {
+      font-size: 0.72rem; color: var(--red); cursor: pointer;
+      background: none; border: none; padding: 0; margin-top: 0.25rem;
+      transition: opacity 0.2s;
+    }
+    .cart-item-remove:hover { opacity: 0.7; }
+
+    .cart-footer { padding: 1.2rem 1.5rem; border-top: 1px solid var(--border); }
+    .cart-subtotal {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .cart-subtotal-label { font-size: 0.85rem; color: var(--ink-mid); }
+    .cart-subtotal-price { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--teal); }
+
+    .cart-charity {
+      background: var(--teal-lt); border: 1px solid rgba(26,107,90,0.2);
+      border-radius: 10px; padding: 0.6rem 0.9rem;
+      font-size: 0.75rem; color: var(--teal); font-weight: 500;
+      margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .btn-checkout {
+      width: 100%; padding: 0.9rem;
+      background: var(--teal); color: #fff; border: none; cursor: pointer;
+      border-radius: 50px; font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 700;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 4px 18px rgba(26,107,90,0.25);
+    }
+    .btn-checkout:hover { background: var(--teal-dk); transform: translateY(-1px); }
+    .btn-checkout:disabled { background: var(--ink-light); cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .cart-secure { text-align: center; font-size: 0.7rem; color: var(--ink-light); margin-top: 0.6rem; }
+
+    /* ── SUCCESS MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(15,21,32,0.6);
+      z-index: 300; display: none; align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white); border-radius: 24px;
+      padding: 2.5rem; max-width: 440px; width: 100%;
+      text-align: center; position: relative;
+      animation: modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes modalIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .modal-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .modal h2 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; margin-bottom: 0.5rem; }
+    .modal p { font-size: 0.88rem; color: var(--ink-mid); margin-bottom: 1.5rem; line-height: 1.6; }
+    .modal-ref {
+      font-family: 'DM Mono', monospace; font-size: 0.8rem;
+      background: var(--teal-lt); color: var(--teal);
+      padding: 0.4rem 1rem; border-radius: 50px;
+      display: inline-block; margin-bottom: 1.5rem;
+    }
+    .modal-download {
+      display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem;
+    }
+    .download-btn {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.85rem 1.2rem; border-radius: 12px;
+      background: var(--cream); border: 1px solid var(--border);
+      cursor: pointer; transition: background 0.15s, border-color 0.15s;
+      text-decoration: none;
+    }
+    .download-btn:hover { background: var(--teal-lt); border-color: var(--teal); }
+    .download-btn-icon { font-size: 1.3rem; }
+    .download-btn-info { text-align: left; flex: 1; }
+    .download-btn-name { font-size: 0.85rem; font-weight: 600; color: var(--ink); }
+    .download-btn-sub { font-size: 0.72rem; color: var(--ink-light); }
+    .download-arrow { color: var(--teal); font-size: 0.9rem; }
+    .modal-close-btn {
+      background: var(--teal); color: #fff; border: none; cursor: pointer;
+      padding: 0.75rem 2rem; border-radius: 50px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600;
+    }
+
+    /* ── TRUST STRIP ── */
+    .trust-strip {
+      background: var(--teal-lt); border-top: 1px solid rgba(26,107,90,0.15);
+      border-bottom: 1px solid rgba(26,107,90,0.15);
+      padding: 0.85rem 5vw; display: flex; gap: 2rem;
+      justify-content: center; flex-wrap: wrap;
+    }
+    .trust-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--teal); font-weight: 500; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .cart-drawer { width: 100vw; }
+      .shop-hero { padding: 40px 5vw 35px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="24" height="24" viewBox="0 0 34 34" fill="none">
+      <line x1="17" y1="3" x2="17" y2="31" stroke="#1a6b5a" stroke-width="1.3" stroke-linecap="round"/>
+      <line x1="3" y1="17" x2="31" y2="17" stroke="#1a6b5a" stroke-width="1.3" stroke-linecap="round"/>
+      <line x1="7.5" y1="7.5" x2="26.5" y2="26.5" stroke="#c8a96e" stroke-width="1" stroke-linecap="round"/>
+      <line x1="26.5" y1="7.5" x2="7.5" y2="26.5" stroke="#c8a96e" stroke-width="1" stroke-linecap="round"/>
+      <circle cx="17" cy="17" r="3.5" fill="#1a6b5a"/>
+    </svg>
+    <div>
+      <div class="nav-logo-name">Elevated</div>
+      <div class="nav-logo-rule"></div>
+      <div class="nav-logo-tagline">11+ Specialist Tutoring</div>
+    </div>
+  </a>
+  <div class="nav-right">
+    <a href="index.html" class="nav-link">← Back to site</a>
+    <button class="cart-btn" onclick="toggleCart()">
+      🛒 Cart
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="shop-hero">
+  <div class="shop-hero-label">The Elevated Shop</div>
+  <h1>11+ Resources, <em style="font-style:italic; color:var(--gold);">made by students</em></h1>
+  <p>Practice papers, revision guides and flashcards — written by grammar school students who've been through the 11+ themselves.</p>
+  <div class="shop-hero-pills">
+    <div class="hero-pill"><span>✓</span> Instant PDF download</div>
+    <div class="hero-pill"><span>✓</span> Grammar school written</div>
+    <div class="hero-pill"><span>💚</span> 10% to Right to Succeed</div>
+  </div>
+</div>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item">⚡ Instant download after purchase</div>
+  <div class="trust-item">🎓 Written by Reading School & Abbey School students</div>
+  <div class="trust-item">🔒 Secure checkout via Stripe</div>
+  <div class="trust-item">💚 10% donated to Right to Succeed</div>
+</div>
+
+<!-- SHOP -->
+<div class="shop-wrap">
+
+  <!-- Filters -->
+  <div class="filters">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active" onclick="filterProducts('all', this)">All</button>
+    <button class="filter-btn" onclick="filterProducts('papers', this)">Practice Papers</button>
+    <button class="filter-btn" onclick="filterProducts('guides', this)">Revision Guides</button>
+    <button class="filter-btn" onclick="filterProducts('flashcards', this)">Flashcards</button>
+  </div>
+
+  <!-- Products -->
+  <div class="products-grid" id="productsGrid">
+
+    <!-- PRODUCT 1 -->
+    <div class="product-card" data-category="papers">
+      <div class="product-thumb thumb-teal">
+        <div class="product-badge-wrap">
+          <span class="badge badge-new">New</span>
+          <span class="badge badge-digital">📥 Digital</span>
+        </div>
+        <span class="product-thumb-icon">📝</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Practice Papers</div>
+        <div class="product-name">11+ Maths Practice Pack</div>
+        <div class="product-desc">20 exam-style maths questions covering all key 11+ topics — number, algebra, geometry and data. Includes full worked answers.</div>
+        <div class="product-meta">
+          <span class="meta-pill">📄 20 questions</span>
+          <span class="meta-pill">✅ Answer sheet</span>
+          <span class="meta-pill">🎯 Year 5–6</span>
+        </div>
+      </div>
+      <div class="product-footer">
+        <div class="product-price">£3.99 <span>PDF</span></div>
+        <button class="btn-add" onclick="addToCart('maths-pack', this)">Add to cart</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT 2 -->
+    <div class="product-card" data-category="guides">
+      <div class="product-thumb thumb-gold">
+        <div class="product-badge-wrap">
+          <span class="badge badge-popular">Popular</span>
+          <span class="badge badge-digital">📥 Digital</span>
+        </div>
+        <span class="product-thumb-icon">📖</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Revision Guide</div>
+        <div class="product-name">English Comprehension Guide</div>
+        <div class="product-desc">A complete revision guide to 11+ English comprehension — tips on inference, vocabulary in context, and how to structure answers for maximum marks.</div>
+        <div class="product-meta">
+          <span class="meta-pill">📄 15 pages</span>
+          <span class="meta-pill">💡 Exam tips</span>
+          <span class="meta-pill">🎯 Year 5–6</span>
+        </div>
+      </div>
+      <div class="product-footer">
+        <div class="product-price">£4.99 <span>PDF</span></div>
+        <button class="btn-add" onclick="addToCart('english-guide', this)">Add to cart</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT 3 — Coming Soon -->
+    <div class="product-card" data-category="flashcards" style="opacity:0.75;">
+      <div class="product-thumb thumb-blue">
+        <div class="product-badge-wrap">
+          <span class="badge badge-coming">Coming Soon</span>
+        </div>
+        <span class="product-thumb-icon">🃏</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Flashcards</div>
+        <div class="product-name">Vocabulary Flashcard Set</div>
+        <div class="product-desc">50 printable flashcard pairs covering key vocabulary likely to appear in 11+ verbal reasoning and comprehension papers.</div>
+        <div class="product-meta">
+          <span class="meta-pill">🃏 50 cards</span>
+          <span class="meta-pill">🖨️ Print at home</span>
+          <span class="meta-pill">🎯 Year 4–6</span>
+        </div>
+      </div>
+      <div class="product-footer">
+        <div class="product-price">£2.99 <span>PDF</span></div>
+        <button class="btn-notify" onclick="notifyMe(this)">Notify me</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h2>Your cart 🛒</h2>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <div class="cart-empty-icon">🛒</div>
+      <p>Your cart is empty — add some resources above!</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-subtotal">
+      <span class="cart-subtotal-label">Total</span>
+      <span class="cart-subtotal-price" id="cartTotal">£0.00</span>
+    </div>
+    <div class="cart-charity">💚 10% of your order goes to <strong>Right to Succeed</strong></div>
+    <button class="btn-checkout" onclick="handleCheckout()">🔒 Checkout</button>
+    <div class="cart-secure">Secured by Stripe · SSL encrypted · Instant download</div>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal">
+    <div class="modal-icon">🎉</div>
+    <h2>Thank you!</h2>
+    <p>Your purchase is confirmed. Click below to download your resources — they'll also be emailed to you.</p>
+    <div class="modal-ref" id="modalRef">Order #ELV-000000</div>
+    <div class="modal-download" id="modalDownloads"></div>
+    <p style="font-size:0.75rem; color:var(--ink-light); margin-bottom:1rem;">💚 10% of your payment has been donated to <strong style="color:var(--teal);">Right to Succeed</strong></p>
+    <button class="modal-close-btn" onclick="closeModal()">Done ✓</button>
+  </div>
+</div>
+
+<script>
+  // ── PRODUCT CATALOGUE ──
+  // 🔧 Add your Stripe Price IDs here once you set up Stripe products
+  const CATALOGUE = {
+    'maths-pack': {
+      name: '11+ Maths Practice Pack',
+      desc: 'Practice Papers · PDF',
+      price: 3.99,
+      icon: '📝',
+      thumbClass: 'thumb-teal',
+      stripePrice: 'price_REPLACE_MATHS',
+      // 🔧 Replace this with your real Google Drive / Dropbox download link
+      downloadUrl: '#',
+      downloadName: '11plus_maths_pack.pdf'
+    },
+    'english-guide': {
+      name: 'English Comprehension Guide',
+      desc: 'Revision Guide · PDF',
+      price: 4.99,
+      icon: '📖',
+      thumbClass: 'thumb-gold',
+      stripePrice: 'price_REPLACE_ENGLISH',
+      // 🔧 Replace this with your real Google Drive / Dropbox download link
+      downloadUrl: '#',
+      downloadName: '11plus_english_guide.pdf'
+    }
+  };
+
+  // ── CART STATE ──
+  let cart = {};
+
+  // ── FILTERS ──
+  function filterProducts(category, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.style.display = (category === 'all' || card.dataset.category === category) ? 'flex' : 'none';
+    });
+  }
+
+  // ── ADD TO CART ──
+  function addToCart(id, btn) {
+    if (cart[id]) {
+      cart[id].qty++;
+    } else {
+      cart[id] = { ...CATALOGUE[id], qty: 1 };
+    }
+    btn.textContent = '✓ Added!';
+    btn.classList.add('added');
+    setTimeout(() => { btn.textContent = 'Add to cart'; btn.classList.remove('added'); }, 1500);
+    updateCart();
+    toggleCart(true);
+  }
+
+  function removeFromCart(id) {
+    delete cart[id];
+    updateCart();
+  }
+
+  function updateCart() {
+    const items = Object.entries(cart);
+    const total = items.reduce((s, [, v]) => s + v.price * v.qty, 0);
+    const count = items.reduce((s, [, v]) => s + v.qty, 0);
+
+    // Nav badge
+    const countEl = document.getElementById('cartCount');
+    countEl.textContent = count;
+    countEl.classList.toggle('show', count > 0);
+
+    // Cart items
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartFooter = document.getElementById('cartFooter');
+
+    if (items.length === 0) {
+      cartItemsEl.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Your cart is empty!</p></div>`;
+      cartFooter.style.display = 'none';
+      return;
+    }
+
+    cartFooter.style.display = 'block';
+    document.getElementById('cartTotal').textContent = '£' + total.toFixed(2);
+
+    cartItemsEl.innerHTML = items.map(([id, item]) => `
+      <div class="cart-item">
+        <div class="cart-item-icon ${item.thumbClass}">${item.icon}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-sub">${item.desc}</div>
+        </div>
+        <div class="cart-item-right">
+          <div class="cart-item-price">£${(item.price * item.qty).toFixed(2)}</div>
+          <button class="cart-item-remove" onclick="removeFromCart('${id}')">Remove</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ── CART TOGGLE ──
+  function toggleCart(forceOpen) {
+    const drawer = document.getElementById('cartDrawer');
+    const overlay = document.getElementById('cartOverlay');
+    const isOpen = drawer.classList.contains('open');
+    const shouldOpen = forceOpen !== undefined ? forceOpen : !isOpen;
+    drawer.classList.toggle('open', shouldOpen);
+    overlay.classList.toggle('open', shouldOpen);
+    document.body.style.overflow = shouldOpen ? 'hidden' : '';
+  }
+
+  // ── NOTIFY ME ──
+  function notifyMe(btn) {
+    btn.textContent = '✓ We\'ll let you know!';
+    btn.style.color = 'var(--teal)';
+    btn.style.borderColor = 'var(--teal)';
+    btn.disabled = true;
+  }
+
+  // ── CHECKOUT ──
+  // 🔧 STRIPE INTEGRATION POINT
+  // When ready: create a Netlify Function called 'create-shop-session'
+  // that takes the cart items and creates a Stripe Checkout session
+  async function handleCheckout() {
+    const btn = document.querySelector('.btn-checkout');
+    btn.disabled = true;
+    btn.textContent = '⏳ Processing...';
+
+    // ── STRIPE LIVE CODE (uncomment when ready) ──
+    /*
+    const stripe = Stripe('YOUR_STRIPE_PUBLISHABLE_KEY');
+    const lineItems = Object.values(cart).map(item => ({
+      price: item.stripePrice,
+      quantity: item.qty
+    }));
+    const res = await fetch('/.netlify/functions/create-shop-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ lineItems, customerEmail: '' })
+    });
+    const { sessionId } = await res.json();
+    stripe.redirectToCheckout({ sessionId });
+    */
+
+    // ── DEMO MODE (remove when Stripe is live) ──
+    setTimeout(() => {
+      toggleCart(false);
+      showSuccessModal();
+      btn.disabled = false;
+      btn.textContent = '🔒 Checkout';
+    }, 1500);
+  }
+
+  function showSuccessModal() {
+    const ref = 'ELV-' + Math.floor(100000 + Math.random() * 900000);
+    document.getElementById('modalRef').textContent = 'Order #' + ref;
+
+    const downloads = Object.values(cart).map(item => `
+      <a class="download-btn" href="${item.downloadUrl}" download="${item.downloadName}">
+        <span class="download-btn-icon">${item.icon}</span>
+        <div class="download-btn-info">
+          <div class="download-btn-name">${item.name}</div>
+          <div class="download-btn-sub">Click to download PDF</div>
+        </div>
+        <span class="download-arrow">↓</span>
+      </a>
+    `).join('');
+    document.getElementById('modalDownloads').innerHTML = downloads;
+
+    document.getElementById('successModal').classList.add('open');
+    cart = {};
+    updateCart();
+  }
+
+  function closeModal() {
+    document.getElementById('successModal').classList.remove('open');
+  }
+</script>
+
+<!-- Uncomment when you have your Stripe key: -->
+<!-- <script src="https://js.stripe.com/v3/"></script> -->
+
+</body>
+</html>
