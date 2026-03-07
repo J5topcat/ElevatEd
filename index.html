@@ -21,6 +21,58 @@
       --radius:  14px;
     }
 
+    body.dark {
+      --ink:      #f0ede8;
+      --ink-mid:  #b0b8c8;
+      --ink-light: #6b7485;
+      --cream:    #141920;
+      --white:    #1e2530;
+      --teal:     #4db896;
+      --teal-lt:  #1a2e28;
+      --gold:     #d4a96e;
+      --border:   #2a3342;
+    }
+
+    body.dark nav {
+      background: rgba(20,25,32,0.95);
+    }
+
+    /* Footer always stays dark — override dark mode variable bleed */
+    footer {
+      background: #0f1520 !important;
+      color: rgba(255,255,255,0.55) !important;
+    }
+    footer .footer-logo-name { color: #fff !important; }
+    footer .footer-logo-tagline { color: rgba(255,255,255,0.4) !important; }
+    footer .footer-links a { color: rgba(255,255,255,0.45) !important; }
+    footer .footer-links a:hover { color: #fff !important; }
+    footer .footer-copy { color: rgba(255,255,255,0.4) !important; }
+
+    /* Trust bar always stays dark too */
+    .trust-bar {
+      background: #0f1520 !important;
+    }
+    .trust-item { color: rgba(255,255,255,0.65) !important; }
+
+    /* Dark mode card/section fixes */
+    body.dark .hero-card { box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+    body.dark .step-card,
+    body.dark .tutor-card,
+    body.dark .testi-card { border-color: var(--border); }
+    body.dark .mission-quote { background: linear-gradient(135deg, #1a4a3a, #0e2e24); }
+    body.dark .cta-banner { background: linear-gradient(135deg, #1a4a3a 0%, #0e2e24 100%); }
+
+    /* ── DARK MODE TOGGLE ── */
+    .theme-toggle {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--cream);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; transition: background 0.2s, border-color 0.2s, transform 0.2s;
+      flex-shrink: 0; margin-left: 0.75rem;
+    }
+    .theme-toggle:hover { background: var(--teal-lt); border-color: var(--teal); transform: rotate(20deg); }
+
     html { scroll-behavior: smooth; }
 
     body {
@@ -43,13 +95,26 @@
     }
 
     .nav-logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.5rem;
-      color: var(--teal);
-      letter-spacing: -0.02em;
-      text-decoration: none;
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; flex-shrink: 0;
     }
-    .nav-logo span { color: var(--gold); }
+    .nav-logo-wordmark {
+      display: flex; flex-direction: column; gap: 2px; line-height: 1;
+    }
+    .nav-logo-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem; color: var(--ink);
+      letter-spacing: 0.03em;
+    }
+    .nav-logo-rule {
+      height: 1px;
+      background: linear-gradient(90deg, var(--teal), var(--gold));
+    }
+    .nav-logo-tagline {
+      font-size: 0.45rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--ink-light);
+    }
 
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a {
@@ -68,15 +133,16 @@
 
     /* ── HERO ── */
     .hero {
-      min-height: 100vh;
+      min-height: calc(100vh - 68px);
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
-      padding: 100px 5vw 60px;
+      padding: 80px 5vw 60px;
       gap: 4rem;
     }
 
-    .hero-text { animation: fadeUp 0.8s ease both; }
+    .hero-text { animation: fadeUp 0.7s ease forwards; }
+    .hero-visual { animation: fadeUp 0.7s 0.15s ease forwards; }
 
     .hero-badge {
       display: inline-flex; align-items: center; gap: 0.5rem;
@@ -187,8 +253,8 @@
     /* ── TRUST BAR ── */
     .trust-bar {
       background: var(--ink);
-      padding: 1.2rem 5vw;
-      display: flex; align-items: center; justify-content: center; gap: 4rem;
+      padding: 1rem 5vw;
+      display: flex; align-items: center; justify-content: center; gap: 3rem;
       flex-wrap: wrap;
     }
     .trust-item {
@@ -303,9 +369,10 @@
 
     .step-num {
       font-family: 'DM Serif Display', serif;
-      font-size: 3rem; color: var(--teal-lt); line-height: 1;
+      font-size: 3rem; color: var(--teal); opacity: 0.25; line-height: 1;
       margin-bottom: 1rem; user-select: none;
     }
+    body.dark .step-num { opacity: 0.5; }
     .step-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
     .step-card p { font-size: 0.88rem; color: var(--ink-mid); line-height: 1.6; }
 
@@ -363,12 +430,12 @@
 
     /* ── SHOP TEASER ── */
     .shop-teaser {
-      background: var(--ink);
+      background: #0f1520;
       color: #fff; text-align: center; padding: 80px 5vw;
     }
     .shop-teaser .section-label { color: var(--gold); }
-    .shop-teaser .section-title { color: #fff; margin: 0 auto 1rem; }
-    .shop-teaser .section-sub { color: rgba(255,255,255,0.6); margin: 0 auto 2.5rem; text-align: center; }
+    .shop-teaser .section-title { color: #fff !important; margin: 0 auto 1rem; }
+    .shop-teaser .section-sub { color: rgba(255,255,255,0.6) !important; margin: 0 auto 2.5rem; text-align: center; }
 
     .coming-soon-pills { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
     .cs-pill {
@@ -404,6 +471,9 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .testi-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(15,21,32,0.07); }
+    /* Fix middle "gives back" card in dark mode */
+    body.dark .testi-card[style*="background: linear-gradient"] { background: var(--white) !important; }
+    body.dark .testi-card p { color: var(--ink-mid) !important; }
 
     .stars { color: var(--gold); font-size: 0.9rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
     .testi-text { font-size: 0.92rem; color: var(--ink-mid); line-height: 1.65; font-style: italic; margin-bottom: 1.5rem; }
@@ -452,10 +522,22 @@
       flex-wrap: wrap; gap: 1.5rem;
     }
     .footer-logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.3rem; color: #fff;
+      display: flex; align-items: center; gap: 10px;
     }
-    .footer-logo span { color: var(--gold); }
+    .footer-logo-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem; color: #fff; letter-spacing: 0.03em; line-height: 1;
+    }
+    .footer-logo-rule {
+      height: 1px;
+      background: linear-gradient(90deg, var(--teal), var(--gold));
+      margin: 3px 0;
+    }
+    .footer-logo-tagline {
+      font-size: 0.42rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
     .footer-links { display: flex; gap: 1.5rem; }
     .footer-links a { font-size: 0.82rem; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: #fff; }
@@ -463,23 +545,19 @@
 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(28px); }
+      from { opacity: 0.4; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .reveal {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal { opacity: 1; transform: none; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; padding-top: 110px; }
+      .hero { grid-template-columns: 1fr; padding-top: 160px; }
       .hero-visual { display: none; }
       .mission-inner { grid-template-columns: 1fr; }
       .steps, .tutoring-grid, .testimonials-grid { grid-template-columns: 1fr; }
-      .trust-bar { gap: 1.5rem; }
+      .trust-bar { gap: 1rem; padding: 0.75rem 5vw; }
     }
   </style>
 </head>
@@ -487,7 +565,20 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Elevated<span>.</span></a>
+  <a href="#" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="17" y1="3" x2="17" y2="31" stroke="#1a6b5a" stroke-width="1.3" stroke-linecap="round"/>
+      <line x1="3" y1="17" x2="31" y2="17" stroke="#1a6b5a" stroke-width="1.3" stroke-linecap="round"/>
+      <line x1="7.5" y1="7.5" x2="26.5" y2="26.5" stroke="#c8a96e" stroke-width="1" stroke-linecap="round"/>
+      <line x1="26.5" y1="7.5" x2="7.5" y2="26.5" stroke="#c8a96e" stroke-width="1" stroke-linecap="round"/>
+      <circle cx="17" cy="17" r="3.5" fill="#1a6b5a"/>
+    </svg>
+    <div class="nav-logo-wordmark">
+      <span class="nav-logo-name">Elevated</span>
+      <div class="nav-logo-rule"></div>
+      <span class="nav-logo-tagline">11+ Specialist Tutoring</span>
+    </div>
+  </a>
   <ul class="nav-links">
     <li><a href="#mission">About</a></li>
     <li><a href="#how">How it Works</a></li>
@@ -495,6 +586,7 @@
     <li><a href="#shop">Shop</a></li>
   </ul>
   <a href="#tutoring" class="nav-cta">Book a Session</a>
+  <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">🌙</button>
 </nav>
 
 <!-- HERO -->
@@ -519,9 +611,9 @@
         <div class="subject-pill"><span class="icon">📐</span> Non-Verbal</div>
       </div>
       <div class="card-stat">
-        <div class="stat"><div class="stat-num">94%</div><div class="stat-label">Pass Rate</div></div>
-        <div class="stat"><div class="stat-num">150+</div><div class="stat-label">Students Helped</div></div>
-        <div class="stat"><div class="stat-num">5★</div><div class="stat-label">Parent Reviews</div></div>
+        <div class="stat"><div class="stat-num">💻</div><div class="stat-label">100% Online</div></div>
+        <div class="stat"><div class="stat-num">4</div><div class="stat-label">Subjects Covered</div></div>
+        <div class="stat"><div class="stat-num">🎓</div><div class="stat-label">Grammar School Tutors</div></div>
       </div>
     </div>
     <div class="floating-badge">🎓 Results-driven tutoring</div>
@@ -531,9 +623,9 @@
 <!-- TRUST BAR -->
 <div class="trust-bar">
   <div class="trust-item"><span>✦</span> Social Enterprise</div>
-  <div class="trust-item"><span>✦</span> DBS-Checked Tutors</div>
-  <div class="trust-item"><span>✦</span> Personalised Plans</div>
-  <div class="trust-item"><span>✦</span> 94% Pass Rate</div>
+  <div class="trust-item"><span>✦</span> 100% Online Sessions</div>
+  <div class="trust-item"><span>✦</span> Grammar School Tutors</div>
+  <div class="trust-item"><span>✦</span> Profits Support Right to Succeed</div>
   <div class="trust-item"><span>✦</span> Parent-Friendly Reporting</div>
 </div>
 
@@ -543,21 +635,28 @@
     <div>
       <p class="section-label reveal">Who We Are</p>
       <h2 class="section-title reveal">A mission rooted in <em style="font-style:italic; color:var(--teal)">opportunity</em></h2>
-      <p class="section-sub reveal">Elevated was founded on a simple belief: every child — regardless of background — deserves access to outstanding 11+ preparation. We combine expert tuition with a genuine care for the whole child.</p>
+      <p class="section-sub reveal">Elevated was founded by students from Reading's most prestigious schools — <strong>Reading School</strong> and <strong>Abbey School</strong>. Having lived the 11+ journey ourselves, we know exactly what it takes — and we're passionate about giving every child the best opportunity, and helping other children along the way through our partnerhip with Right to Succeed.</p>
 
       <div class="mission-values reveal">
         <div class="value-row">
-          <div class="value-icon">🎯</div>
+          <div class="value-icon">🏫</div>
           <div class="value-text">
-            <strong>Purposeful Learning</strong>
-            <p>Structured, exam-focused sessions that build real confidence — not just rote answers.</p>
+            <strong>Founded by Grammar School Students</strong>
+            <p>Our tutors are students from Reading School and Abbey School — we've been through the 11+ ourselves and know what actually works.</p>
           </div>
         </div>
         <div class="value-row">
-          <div class="value-icon">🤝</div>
+          <div class="value-icon">💚</div>
           <div class="value-text">
-            <strong>Social Impact</strong>
-            <p>As a social enterprise, we reinvest in making quality tutoring accessible to underserved communities.</p>
+            <strong>Proudly Supporting Right to Succeed</strong>
+            <p>A portion of every session fee is donated to <strong>Right to Succeed</strong> — a charity breaking down barriers to education for children in underserved communities.</p>
+          </div>
+        </div>
+        <div class="value-row">
+          <div class="value-icon">💻</div>
+          <div class="value-text">
+            <strong>Fully Online — Learn Anywhere</strong>
+            <p>All sessions are delivered online, giving your child expert tuition from the comfort of home with no travel required.</p>
           </div>
         </div>
         <div class="value-row">
@@ -572,16 +671,25 @@
 
     <div class="reveal">
       <div class="mission-quote">
-        <blockquote>"Every child who walks through our door has the potential to be extraordinary. Our job is simply to help them see it."</blockquote>
-        <cite>— The Elevated Team</cite>
+        <blockquote>"We sat the 11+ ourselves. We know the pressure, the preparation, and what it feels like to succeed. We started Elevated so every child gets that same opportunity — not just those who can afford it."</blockquote>
+        <cite>— The Elevated Team, Reading School &amp; Abbey School</cite>
 
         <div class="mission-who">
           <h4>We work with children who are</h4>
           <div class="who-grid">
             <div class="who-item">📅 Aged 9–11</div>
             <div class="who-item">🏫 Targeting grammars</div>
-            <div class="who-item">📈 Building confidence</div>
+            <div class="who-item">💻 Learning online</div>
             <div class="who-item">🌍 Any background</div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.5rem; background:rgba(255,255,255,0.12); border-radius:12px; padding:1.2rem 1.5rem; display:flex; align-items:center; gap:1rem;">
+          <div style="font-size:1.8rem;">💚</div>
+          <div>
+            <div style="font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:0.2rem;">Our Charity Partner</div>
+            <div style="font-size:1rem; font-weight:700; color:#fff;">Right to Succeed</div>
+            <div style="font-size:0.82rem; color:rgba(255,255,255,0.75); margin-top:0.2rem;">A portion of every session fee goes directly to Right to Succeed, helping children in underserved communities access the education they deserve.</div>
           </div>
         </div>
       </div>
@@ -612,8 +720,8 @@
     </div>
     <div class="step-card reveal">
       <div class="step-num">03</div>
-      <h3>Guided Sessions</h3>
-      <p>Weekly 1-to-1 or small group sessions, delivered with energy, patience, and a focus on lasting understanding.</p>
+      <h3>Online Sessions</h3>
+      <p>Weekly 1-to-1 or small group sessions delivered entirely online — all you need is a device and an internet connection. No travel, no fuss.</p>
     </div>
   </div>
 </section>
@@ -622,7 +730,7 @@
 <section class="tutoring" id="tutoring">
   <p class="section-label reveal">Sessions & Pricing</p>
   <h2 class="section-title reveal">Flexible tutoring options</h2>
-  <p class="section-sub reveal">Choose the format that fits your child and your schedule. All sessions include progress tracking and parent updates.</p>
+  <p class="section-sub reveal">All sessions are delivered <strong>100% online</strong> — choose the format that fits your child and your schedule. Every session includes progress tracking and parent updates.</p>
 
   <div class="tutoring-grid">
     <div class="tutor-card reveal">
@@ -632,8 +740,9 @@
       </div>
       <div class="tutor-card-body">
         <ul class="tutor-features">
-          <li>Small groups of 4–6 students</li>
-          <li>Weekly 90-minute sessions</li>
+          <li>Small groups of 2–3 students</li>
+          <li>Fortnightly 90-minute sessions</li>
+          <li>💻 Delivered fully online</li>
           <li>All 11+ subjects covered</li>
           <li>Monthly progress report</li>
           <li>Peer learning environment</li>
@@ -648,11 +757,12 @@
       <div class="tutor-card-header">
         <div class="featured-tag">Most Popular</div>
         <h3>1-to-1 Tuition</h3>
-        <div class="price">£45 <span>/ session</span></div>
+        <div class="price">£40 <span>/ session</span></div>
       </div>
       <div class="tutor-card-body">
         <ul class="tutor-features">
           <li>Dedicated personal tutor</li>
+          <li>💻 Delivered fully online</li>
           <li>Fully bespoke session plan</li>
           <li>Flexible scheduling</li>
           <li>Fortnightly parent review call</li>
@@ -668,11 +778,12 @@
     <div class="tutor-card reveal">
       <div class="tutor-card-header">
         <h3>Intensive Programme</h3>
-        <div class="price">£180 <span>/ month</span></div>
+        <div class="price">£160 <span>/ month</span></div>
       </div>
       <div class="tutor-card-body">
         <ul class="tutor-features">
           <li>4 × 1-to-1 sessions/month</li>
+          <li>💻 Delivered fully online</li>
           <li>Full mock exam papers</li>
           <li>School application guidance</li>
           <li>Weekly parent progress updates</li>
@@ -689,44 +800,28 @@
 
 <!-- TESTIMONIALS -->
 <section class="testimonials" id="testimonials">
-  <p class="section-label reveal">Parent Stories</p>
-  <h2 class="section-title reveal">Families who trusted Elevated</h2>
+  <p class="section-label reveal">Reviews</p>
+  <h2 class="section-title reveal">We're just getting started — <em style="font-style:italic; color:var(--teal)">be part of our story</em></h2>
+  <p class="section-sub reveal" style="margin-bottom:3rem;">Elevated is a brand new social enterprise. We don't have reviews yet — but that means you could be one of our very first families. We'll pour everything into making your child's experience exceptional.</p>
 
   <div class="testimonials-grid">
-    <div class="testi-card reveal">
-      <div class="stars">★★★★★</div>
-      <p class="testi-text">"My daughter went from really struggling with verbal reasoning to absolutely flying through practice papers. The tutors at Elevated have been incredible — patient, encouraging and genuinely invested in her success."</p>
-      <div class="testi-author">
-        <div class="avatar">SM</div>
-        <div>
-          <div class="author-name">Sarah M.</div>
-          <div class="author-role">Parent of Year 5 student</div>
-        </div>
-      </div>
+    <div class="testi-card reveal" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; background: var(--teal-lt); border-color: rgba(26,107,90,0.2);">
+      <div style="font-size:2.5rem; margin-bottom:1rem;">🎓</div>
+      <h3 style="font-family:'DM Serif Display',serif; font-size:1.1rem; margin-bottom:0.5rem; color:var(--ink);">Grammar school tutors</h3>
+      <p style="font-size:0.88rem; color:var(--ink-mid);">Our tutors are current students from <strong>Reading School</strong> and <strong>Abbey School</strong> — two of Reading's top grammar schools. We know the 11+ inside out.</p>
     </div>
 
-    <div class="testi-card reveal">
-      <div class="stars">★★★★★</div>
-      <p class="testi-text">"We were anxious about the whole 11+ process but Elevated made it feel manageable. The regular parent updates were so reassuring — we always knew exactly where our son stood."</p>
-      <div class="testi-author">
-        <div class="avatar">JP</div>
-        <div>
-          <div class="author-name">James P.</div>
-          <div class="author-role">Parent of Year 6 student</div>
-        </div>
-      </div>
+    <div class="testi-card reveal" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; background: var(--white); border-color: rgba(200,169,110,0.3);">
+      <div style="font-size:2.5rem; margin-bottom:1rem;">💚</div>
+      <h3 style="font-family:'DM Serif Display',serif; font-size:1.1rem; margin-bottom:0.5rem; color:var(--ink);">Every session gives back</h3>
+      <p style="font-size:0.88rem; color:var(--ink-mid);">A portion of every fee is donated to <strong>Right to Succeed</strong> — so by booking with us, you're not just helping your child, you're helping other children too.</p>
     </div>
 
-    <div class="testi-card reveal">
-      <div class="stars">★★★★★</div>
-      <p class="testi-text">"What sets Elevated apart is their heart. You can tell they genuinely care about the children — not just results. Our son gained confidence across the board and passed his first-choice grammar school."</p>
-      <div class="testi-author">
-        <div class="avatar">AD</div>
-        <div>
-          <div class="author-name">Amara D.</div>
-          <div class="author-role">Parent of Year 6 student</div>
-        </div>
-      </div>
+    <div class="testi-card reveal" style="display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; border: 2px dashed var(--border); background: var(--white);">
+      <div style="font-size:2.5rem; margin-bottom:1rem;">⭐</div>
+      <h3 style="font-family:'DM Serif Display',serif; font-size:1.1rem; margin-bottom:0.5rem; color:var(--ink);">Your review could be first</h3>
+      <p style="font-size:0.88rem; color:var(--ink-mid); margin-bottom:1.2rem;">Book a session and help us build something great. Early families get our full personal attention.</p>
+      <a href="#contact" style="background:var(--teal);color:#fff;padding:0.6rem 1.4rem;border-radius:50px;font-size:0.85rem;font-weight:600;text-decoration:none;">Get in touch →</a>
     </div>
   </div>
 </section>
@@ -757,7 +852,7 @@
   <p>Book a free consultation today — no pressure, just an honest conversation about how we can help.</p>
   <div class="cta-actions">
     <a href="#contact" class="btn-white">Get in Touch</a>
-    <a href="mailto:elevatedsocialenterprise@gmail.com" class="btn-ghost">Email Us Directly</a>
+    <a href="/cdn-cgi/l/email-protection#51343d342730253435223e3238303d343f253423212338223411363c30383d7f323e3c" class="btn-ghost">Email Us Directly</a>
   </div>
 </section>
 
@@ -776,7 +871,7 @@
           <div style="width:42px;height:42px;border-radius:10px;background:var(--teal-lt);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">✉️</div>
           <div>
             <div style="font-size:0.78rem;color:var(--ink-light);font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.2rem;">Email us</div>
-            <a href="mailto:elevatedsocialenterprise@gmail.com" style="font-size:0.9rem;color:var(--teal);font-weight:500;text-decoration:none;">elevatedsocialenterprise@gmail.com</a>
+            <a href="/cdn-cgi/l/email-protection#3c5950594a5d4859584f535f555d50595248594e4c4e554f597c5b515d5550125f5351" style="font-size:0.9rem;color:var(--teal);font-weight:500;text-decoration:none;"><span class="__cf_email__" data-cfemail="244148415245504140574b474d4548414a50415654564d5741644349454d480a474b49">[email&#160;protected]</span></a>
           </div>
         </div>
         <div class="reveal" style="display:flex; align-items:center; gap:1rem; padding:1.1rem 1.3rem; border-radius:14px; border:1px solid var(--border); background:var(--cream);">
@@ -790,7 +885,7 @@
           <div style="width:42px;height:42px;border-radius:10px;background:var(--teal-lt);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;">📍</div>
           <div>
             <div style="font-size:0.78rem;color:var(--ink-light);font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.2rem;">Sessions available</div>
-            <div style="font-size:0.9rem;color:var(--ink-mid);font-weight:500;">Online &amp; In-Person</div>
+            <div style="font-size:0.9rem;color:var(--ink-mid);font-weight:500;">100% Online via Video Call</div>
           </div>
         </div>
       </div>
@@ -858,7 +953,20 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Elevated<span>.</span></div>
+  <div class="footer-logo">
+    <svg width="26" height="26" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="17" y1="3" x2="17" y2="31" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/>
+      <line x1="3" y1="17" x2="31" y2="17" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/>
+      <line x1="7.5" y1="7.5" x2="26.5" y2="26.5" stroke="#c8a96e" stroke-width="1" stroke-linecap="round"/>
+      <line x1="26.5" y1="7.5" x2="7.5" y2="26.5" stroke="#c8a96e" stroke-width="1" stroke-linecap="round"/>
+      <circle cx="17" cy="17" r="3.5" fill="#c8a96e"/>
+    </svg>
+    <div>
+      <div class="footer-logo-name">Elevated</div>
+      <div class="footer-logo-rule"></div>
+      <div class="footer-logo-tagline">11+ Specialist Tutoring</div>
+    </div>
+  </div>
   <div class="footer-links">
     <a href="#mission">About</a>
     <a href="#tutoring">Tutoring</a>
@@ -868,20 +976,25 @@
   <p class="footer-copy">© 2025 Elevated. A social enterprise.</p>
 </footer>
 
-<script>
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => observer.observe(el));
 
-  // Smooth active nav highlight
+<script>
+  // Dark mode toggle
+  const toggle = document.getElementById('themeToggle');
+  const body = document.body;
+
+  if (localStorage.getItem('theme') === 'dark') {
+    body.classList.add('dark');
+    toggle.textContent = '☀️';
+  }
+
+  toggle.addEventListener('click', () => {
+    body.classList.toggle('dark');
+    const isDark = body.classList.contains('dark');
+    toggle.textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+
+  // Nav highlight on scroll
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
   window.addEventListener('scroll', () => {
