@@ -551,13 +551,115 @@
 
     .reveal { opacity: 1; transform: none; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; padding-top: 160px; }
+    /* ══════════════════════════════════════
+       RESPONSIVE — TABLET (max 1024px)
+    ══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .hero { gap: 2.5rem; padding: 100px 5vw 60px; }
+      .mission-inner { gap: 3rem; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .tutoring-grid { grid-template-columns: 1fr 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE — MOBILE (max 768px)
+    ══════════════════════════════════════ */
+    @media (max-width: 768px) {
+
+      /* NAV — hide links, show hamburger */
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: fixed; top: 68px; left: 0; right: 0;
+        background: var(--cream); border-bottom: 1px solid var(--border);
+        padding: 1.5rem 5vw 2rem; gap: 1.2rem; z-index: 99;
+        box-shadow: 0 8px 24px rgba(15,21,32,0.1);
+      }
+      .nav-links.open a { font-size: 1rem; padding: 0.3rem 0; }
+      .nav-cta { display: none; }
+      .hamburger {
+        display: flex; flex-direction: column; gap: 5px;
+        cursor: pointer; padding: 6px; border: none;
+        background: transparent; margin-left: auto; margin-right: 0.5rem;
+      }
+      .hamburger span {
+        display: block; width: 22px; height: 2px;
+        background: var(--ink); border-radius: 2px;
+        transition: all 0.25s;
+      }
+      .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .hamburger.open span:nth-child(2) { opacity: 0; }
+      .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+      /* HERO */
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 100px 5vw 50px;
+        text-align: center;
+      }
       .hero-visual { display: none; }
-      .mission-inner { grid-template-columns: 1fr; }
-      .steps, .tutoring-grid, .testimonials-grid { grid-template-columns: 1fr; }
-      .trust-bar { gap: 1rem; padding: 0.75rem 5vw; }
+      .hero h1 { font-size: clamp(2rem, 8vw, 2.8rem); }
+      .hero-sub { max-width: 100%; margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-badge { margin-left: auto; margin-right: auto; }
+
+      /* TRUST BAR */
+      .trust-bar {
+        gap: 0.6rem; padding: 0.9rem 5vw;
+        justify-content: flex-start; overflow-x: auto;
+        flex-wrap: nowrap; -webkit-overflow-scrolling: touch;
+      }
+      .trust-item { white-space: nowrap; font-size: 0.7rem; flex-shrink: 0; }
+
+      /* SECTIONS */
+      section { padding: 60px 5vw; }
+      .section-title { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+
+      /* MISSION */
+      .mission-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      /* HOW IT WORKS */
+      .how-header { flex-direction: column; align-items: flex-start; }
+      .how-header .section-sub { text-align: left !important; max-width: 100% !important; }
+      .steps { grid-template-columns: 1fr; gap: 1rem; }
+
+      /* TUTORING */
+      .tutoring-grid { grid-template-columns: 1fr; }
+
+      /* TESTIMONIALS */
+      .testimonials-grid { grid-template-columns: 1fr; }
+
+      /* SHOP TEASER */
+      .coming-soon-pills { gap: 0.5rem; }
+      .cs-pill { font-size: 0.78rem; padding: 0.4rem 0.9rem; }
+      .notify-form { flex-direction: column; align-items: center; }
+      .notify-input { width: 100%; max-width: 320px; }
+      .btn-gold { width: 100%; max-width: 320px; }
+
+      /* CTA BANNER */
+      .cta-banner { padding: 60px 5vw; }
+      .cta-actions { flex-direction: column; align-items: center; }
+      .btn-white, .btn-ghost { width: 100%; max-width: 320px; text-align: center; }
+
+      /* CONTACT FORM */
+      #contact > div { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+      #contact div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+
+      /* FOOTER */
+      footer { flex-direction: column; text-align: center; align-items: center; padding: 2.5rem 5vw; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+    }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE — SMALL PHONES (max 400px)
+    ══════════════════════════════════════ */
+    @media (max-width: 400px) {
+      .hero h1 { font-size: 1.9rem; }
+      .btn-primary, .btn-outline { padding: 0.75rem 1.4rem; font-size: 0.88rem; width: 100%; text-align: center; }
+      .hero-actions { flex-direction: column; }
+      .nav-logo-tagline { display: none; }
     }
   </style>
 </head>
@@ -579,13 +681,16 @@
       <span class="nav-logo-tagline">11+ Specialist Tutoring</span>
     </div>
   </a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="#mission">About</a></li>
     <li><a href="#how">How it Works</a></li>
     <li><a href="#tutoring">Tutoring</a></li>
     <li><a href="#shop">Shop</a></li>
   </ul>
   <a href="#tutoring" class="nav-cta">Book a Session</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu" style="display:none;">
+    <span></span><span></span><span></span>
+  </button>
   <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">🌙</button>
 </nav>
 
@@ -972,21 +1077,51 @@
     <a href="#tutoring">Tutoring</a>
     <a href="#shop">Shop</a>
     <a href="#contact">Contact</a>
+    <a href="admin.html" style="opacity:0.35; font-size:0.72rem; color:rgba(255,255,255,0.4);" title="Admin">✦</a>
   </div>
   <p class="footer-copy">© 2025 Elevated. A social enterprise.</p>
 </footer>
 
 
 <script>
+  // Hamburger menu — show on mobile
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  function isMobile() { return window.innerWidth <= 768; }
+
+  function updateNav() {
+    if (isMobile()) {
+      hamburger.style.display = 'flex';
+    } else {
+      hamburger.style.display = 'none';
+      navLinks.classList.remove('open');
+      hamburger.classList.remove('open');
+    }
+  }
+  updateNav();
+  window.addEventListener('resize', updateNav);
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    hamburger.classList.toggle('open');
+  });
+
+  // Close menu when a link is clicked
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
+  });
+
   // Dark mode toggle
   const toggle = document.getElementById('themeToggle');
   const body = document.body;
-
   if (localStorage.getItem('theme') === 'dark') {
     body.classList.add('dark');
     toggle.textContent = '☀️';
   }
-
   toggle.addEventListener('click', () => {
     body.classList.toggle('dark');
     const isDark = body.classList.contains('dark');
@@ -996,11 +1131,11 @@
 
   // Nav highlight on scroll
   const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
+  const links = document.querySelectorAll('.nav-links a');
   window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
-    navLinks.forEach(a => {
+    links.forEach(a => {
       a.style.color = a.getAttribute('href') === '#' + current ? 'var(--teal)' : '';
     });
   });
